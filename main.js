@@ -55,7 +55,6 @@ global.prefix = new RegExp('^[' + (opts['prefix'] || '*/i!#$%+£¢€¥^°=¶∆
 global.db = new Low(/https?:\/\//.test(opts['db'] || '') ? new cloudDBAdapter(opts['db']) : new JSONFile(`${opts._[0] ? opts._[0] + '_' : ''}database.json`));
 
 
-//DATA UPDATE >>
 const serviceAccount = JSON.parse(readFileSync('./firebase-key.json', 'utf8'));
 const id = serviceAccount.project_id
 firebaseAdmin.initializeApp({
@@ -113,6 +112,7 @@ async function saveDataToFirebase() {
 }
 
 setInterval(saveDataToFirebase, 60000);
+
 
 
 global.DATABASE = global.db; 
