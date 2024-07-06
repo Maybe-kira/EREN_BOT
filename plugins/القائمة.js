@@ -1,11 +1,12 @@
-import { prepareWAMessageMedia, generateWAMessageFromContent, getDevice } from '@whiskeysockets/baileys';
+0029Vab5oDNElagpHtJjmT0B
+
+import { prepareWAMessageMedia, generateWAMessageFromContent, getDevice } from '@whiskeysockets/baileys'
 
 const handler = async (m, { conn, text, usedPrefix: prefijo }) => {
     const device = await getDevice(m.key.id);
 
-    if (device !== 'desktop' && device !== 'web') {      
-        var joanimiimg = await prepareWAMessageMedia({ image: { url: 'https://telegra.ph/file/48d1b1b70fcc002571a78.jpg' } });
-
+    if (device !== 'desktop' || device !== 'web') {      
+        var joanimiimg = await prepareWAMessageMedia({ image: {url: 'https://telegra.ph/file/48d1b1b70fcc002571a78.jpg'}}, { upload: conn.waUploadToServer })
         const interactiveMessage = {
             body: { text: `test`.trim() },
             footer: { text: `©JoAnimi for test`.trim() },  
@@ -16,61 +17,76 @@ const handler = async (m, { conn, text, usedPrefix: prefijo }) => {
                 imageMessage: joanimiimg.imageMessage,
             },
             nativeFlowMessage: {
-                buttons: [
-                    {
-                        name: 'single_select',
-                        buttonParamsJson: JSON.stringify({
-                            title: 'قايمة الاوامر',
-                            sections: [
-                                {
-                                    title: 'List',
-                                    highlight_label: 'ALOTAIBI',
-                                    rows: [
-                                        {
-                                            header: 'القروبات',
-                                            title: 'groups',
-                                            description: 'Click Me',
-                                            id: '.ميزو1'
-                                        }
-                                    ]
-                                },
-                                {
-                                    highlight_label: 'ALOTAIBI',
-                                    rows: [
-                                        {
-                                            header: 'الاعضاء',
-                                            title: 'Members',
-                                            description: 'Click Me',
-                                            id: '.ميزو2'
-                                        }
-                                    ]
-                                },
-                                {
-                                    highlight_label: 'ON',
-                                    rows: [
-                                        {
-                                            header: 'كل الاوامر',
-                                            title: 'AllOrders',
-                                            description: 'Click Me',
-                                            id: '.ميزو12'
-                                        }
-                                    ]
-                                }
-                            ]
-                        })
-                    },
-                    {
-                        name: 'quick_reply',
-                        buttonParamsJson: JSON.stringify({
-                            display_text: 'تواصل مع المطور',
-                            id: `.المطور`
-                        })
-                    },
-                    {
-                        name: 'send_location',
-                        buttonParamsJson: JSON.stringify({})
-                    }
-                ],
+  						buttons: [
+  							{
+  								name: 'single_select',
+  						  	buttonParamsJson: JSON.stringify({
+  						  		title: 'قايمة الاوامر',
+  						  		sections: [
+  						  			{
+  						  				title: 'List',
+  							  	    highlight_label: 'ALOTAIBI',
+  						  		    rows: [
+  						  		    	{
+  						  		    		header: 'اوامر القروبات',
+  										      title: 'Click Me',
+  									    	  description: 'Click Me',
+  								    		  id: '.ميزو1'
+  						  		    	}
+  						  		    ]
+  						  			},
+  						  			{
+  						  				highlight_label: 'ON',
+  						  				rows: [
+  						  					{
+  						  		    		header: 'اوامر اللعضاء',
+  										      title: 'Click Me',
+  									    	  description: 'Click Me',
+  								    		  id: '.ميزو2'
+  						  		    	}
+  						  				]
+  						  			},
+  						  			{
+  						  				highlight_label: 'ON',
+  						  				rows: [
+  						  					{
+  						  		    		header: 'كل الاوامر',
+  										      title: 'Click Me',
+  									    	  description: 'Click Me',
+  								    		  id: '.ميزو12'
+  						  		    	}
+  						  				]
+  						  			}
+  						  		]
+  						  	})
+  							},
+                              {
+                                  name: 'quick_reply',
+                                  buttonParamsJson: JSON.stringify({
+                                      display_text: 'رقم المطور',
+                                      id: `.المطور`
+                                  })
+                              },
+                              {
+                                  name: 'quick_reply',
+                                  buttonParamsJson: JSON.stringify({
+                                      display_text: 'لأي ابلاغ',
+                                      id: '.بلاغ'
+                                  })
+                              },
+                              {
+                                  name: 'address_message',
+                                  buttonParamsJson: JSON.stringify({
+                                      display_text: 'address_message',
+                                      id: 'message'
+                                  })
+                              },
+                              {
+                                  name: 'send_location',
+                                  buttonParamsJson: JSON.stringify({
+                                  })
+                              }
+  			  		],
                 messageParamsJson: ''
             }
         };        
@@ -81,17 +97,14 @@ const handler = async (m, { conn, text, usedPrefix: prefijo }) => {
                     interactiveMessage,
                 },
             },
-        }, { userJid: conn.user.jid, quoted: m });
-        
-        conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id });
+        }, { userJid: conn.user.jid, quoted: m })
+        conn.relayMessage(m.chat, msg.message, { messageId: msg.key.id});
 
     } else {
         conn.sendFile(m.chat, 'JoAnimi•Error.jpg', m);      
     }    
 };
-
 handler.help = ['الاوامر'];
 handler.tags = ['For Test'];
-handler.command = /^(الاوامر|اوامر)$/i;
-
+handler.command = /^(اوامر|الاوامر)$/i;
 export default handler;
