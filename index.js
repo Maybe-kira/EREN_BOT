@@ -74,7 +74,6 @@ function start(file) {
     }
   }
 }
-// GET DATABASE >>
 async function fetchDataAndSave() {
     try {
         try {
@@ -110,7 +109,7 @@ function replaceInvalidKeys(obj) {
     const newObj = {};
     for (const key in obj) {
         if (Object.hasOwnProperty.call(obj, key)) {
-            const newKey = key.replace(/,/g, '.'); // استبدال ',' ب'.'
+            const newKey = key.replace(/,/g, '.'); 
             newObj[newKey] = obj[key];
             if (typeof obj[key] === 'object') {
                 newObj[newKey] = replaceInvalidKeys(obj[key]);
