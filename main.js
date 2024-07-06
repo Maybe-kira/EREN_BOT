@@ -55,7 +55,19 @@ global.prefix = new RegExp('^[' + (opts['prefix'] || '*/i!#$%+£¢€¥^°=¶∆
 global.db = new Low(/https?:\/\//.test(opts['db'] || '') ? new cloudDBAdapter(opts['db']) : new JSONFile(`${opts._[0] ? opts._[0] + '_' : ''}database.json`));
 
 
-import firebaseAdmin from 'firebase-admin';
+//DATA UPDATE >>
+const serviceAccount = JSON.parse(readFileSync('./firebase-key.json', 'utf8'));
+const id = serviceAccount.project_id
+firebaseAdmin.initializeApp({
+    credential: firebaseAdmin.credential.cert(serviceAccount),
+    databaseURL: `https://${id}-default-rtdb.firebaseio.com`
+});
+
+async function fetchCurrentDataFromFirebase() {
+    const dbRef = firebaseAdmin.database().ref('/');
+    const snapshot = await dbRef.once('value');
+    return snapshot.val() || {};
+}
 
 function loadDataAndReplaceInvalidKeys() {
     const data = JSON.parse(readFileSync('database.json', 'utf8'));
@@ -66,7 +78,7 @@ function replaceInvalidKeys(obj) {
     const newObj = {};
     for (let key in obj) {
         if (obj.hasOwnProperty(key)) {
-            const newKey = key.replace(/\./g, ','); 
+            const newKey = key.replace(/\./g, ','); // استبدال كل '.' بـ ','
             newObj[newKey] = obj[key];
             if (typeof obj[key] === 'object') {
                 newObj[newKey] = replaceInvalidKeys(obj[key]);
@@ -76,22 +88,31 @@ function replaceInvalidKeys(obj) {
     return newObj;
 }
 
-const serviceAccount = JSON.parse(readFileSync('./firebase-key.json', 'utf8')); 
-const id = serviceAccount.project_id
-firebaseAdmin.initializeApp({
-    credential: firebaseAdmin.credential.cert(serviceAccount),
-    databaseURL: `https://${id}-default-rtdb.firebaseio.com`
-});
+function mergeData(currentData, newData) {
+    for (let key in newData) {
+        if (newData.hasOwnProperty(key)) {
+            if (typeof newData[key] === 'object' && newData[key] !== null) {
+                if (!currentData[key]) {
+                    currentData[key] = {};
+                }
+                mergeData(currentData[key], newData[key]);
+            } else {
+                currentData[key] = newData[key];
+            }
+        }
+    }
+}
 
 async function saveDataToFirebase() {
     const dbRef = firebaseAdmin.database().ref('/');
-    const replacedData = loadDataAndReplaceInvalidKeys();
-    await dbRef.set(replacedData);
-    console.log('Done Save database << 200')
+    const currentData = await fetchCurrentDataFromFirebase();
+    const newData = loadDataAndReplaceInvalidKeys();
+    mergeData(currentData, newData);
+    await dbRef.set(currentData);
+    console.log('Database update complete << 200');
 }
 
 setInterval(saveDataToFirebase, 60000);
-
 
 
 global.DATABASE = global.db; 
