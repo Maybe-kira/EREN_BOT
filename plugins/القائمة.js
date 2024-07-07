@@ -1,187 +1,147 @@
-import { prepareWAMessageMedia, generateWAMessageFromContent, getDevice } from '@whiskeysockets/baileys'
+//Copyright ©JOANIMI/KILLUA
+//https://whatsapp.com/channel/0029Vab5oDNElagpHtJjmT0B
 
+import { prepareWAMessageMedia, generateWAMessageFromContent, getDevice } from '@whiskeysockets/baileys'
 const handler = async (m, { conn, text, usedPrefix: prefijo }) => {
     const device = await getDevice(m.key.id);
     const mentionId = m.key.participant || m.key.remoteJid;
 
+let _uptime = process.uptime() * 1000
+let uptime = clockString(_uptime)
+
     if (device !== 'desktop' || device !== 'web') {      
-        var joanimiimg = await prepareWAMessageMedia({ image: {url: 'https://telegra.ph/file/48d1b1b70fcc002571a78.jpg'}}, { upload: conn.waUploadToServer })
+        var joanimiimg = await prepareWAMessageMedia({ image: {url: 'https://telegra.ph/file/2a7bf4ee1980dc10aec4e.jpg'}}, { upload: conn.waUploadToServer })
         const interactiveMessage = {
-            body: { text: `*✧━━ • ━ 「 ✤ 」 ━ • ━━✧*\n*〄┃قائمـة الـاوامـر ┃↞ ❮ 🔮 ❯* \n*✧━━ • ━ 「 ✤ 」 ━ • ━━✧*`.trim() },
-            footer: { text: ` > لا تنسى قبل كل امر تحط نقطة❗\n> راسل المطور اذا حدث اي عطل🧿`.trim() },  
+            body: { text: `*▢ مرحبا بك يا : @${mentionId.split('@')[0]}*
+      ──━━━══⟐══━━━──
+ • # اختر القائمه من خلال الزر ☟
+ • # اكتب *" . "* قبل كل امر
+ • # تأكد من كتابة الامر بشكل صحيح
+      ──━━━══⟐══━━━──
+▢ اسـم الـبـوت : *فـيـفـي - Vivi*
+▢ الــمــطــور : *بــروك - 𝐾 ͟͟𝐿 ͟͟⁩*
+▢ مـدة الـتـشـغـيـل : *${uptime}*
+╯─━━──═❆ ❮ ❖ ❯ ❆═──━━─╰`.trim() },
+            footer: { text: `*_˼‏ 𝙑 𝙞 𝙫 𝙞  𝘽 𝙤 𝙩 – v2.0 – 𝘽 𝙧 𝙤 𝙤 𝙠 ˹_*`.trim() },  
             header: {
-                title: `*✧━━ • ━ 「 l✤l 」 ━ • ━━✧*\n*˼‏❖˹┇⇠『 مرحبآ @${mentionId.split('@')[0]}』*\n*╮─────✦❯┇💎┇❮✦─────╭*\n*〄┃ بـووت ↞ 🎀『 مـيزوهـارا 』*\n*〄┃وقت التشغيل ↞ ⌛『 دائم』*\n*〄┃وضـع الـبوت ↞ 🪧『 عـام 』*\n*〄┃الـمـنـصـه ↞ 🌐『 هـيـروكـو』*\n*╯─────✦❯┇💎┇❮✦─────╰*\n❯⏐ 𝐵𝛩𝑇 𝑀𝐼𝑍𝑈𝐻𝐴𝑅𝐴\n*✧━━ • ━ 「 l✤l 」 ━ • ━━✧*\n> جميع الاوامر قم بختيار اي امر🏷\n> افتح القائمة بالضغط على الزر☘️`,
-                subtitle: ``,
+                title: `╮━─═❆❮ قـائـمـة الاوامــر ❯❆═─━╭`,
+                subtitle: `*▢ مرحبا بك يا : @${mentionId.split('@')[0]}*
+      ──━━━══⟐══━━━──
+ • # اختر القائمه من خلال الزر ☟
+ • # اكتب *" . "* قبل كل امر
+ • # مازال هذا البوت تحت التطوير اذا
+      واجهتك اي مشكله يرجى التواصل
+      مع المطور
+      ──━━━══⟐══━━━──
+▢ اسم البوت : *ارجل بوت - Vivi*
+▢ المطور : *ابو عتب - 𝐾ira⁩*
+▢ مدة التشغيل ترا مو شغلك : *${uptime}*
+╯─━━──═❆ ❮ ❖ ❯ ❆═──━━─╰`,
                 hasMediaAttachment: true,
                 imageMessage: joanimiimg.imageMessage,
             },
             nativeFlowMessage: {
-  						buttons: [
-  							{
-  								name: 'single_select',
-  						  	buttonParamsJson: JSON.stringify({
-  						  		title: '❯⏐قائـمة الاوامـر🔮',
-  						  		sections: [
-  						  			{
-  						  				title: 'List',
-  							  	    highlight_label: 'ALOTAIBI',
-  						  		    rows: [
-  						  		    	{
-  						  		    		header: '❯⏐اوامـر الـجـروبـات↞📜',
-  										      title: 'ميزو1',
-  									    	  description: '',
-  								    		  id: '.ميزو1'
-  						  		    	}
-  						  		    ]
-  						  			},
-  						  			{
-  						  				highlight_label: '𝐵𝛩𝑇',
-  						  				rows: [
-  						  					{
-  						  		    		header: '❯⏐اوامـر الأعـضـاء↞🪽',
-  										      title: 'ميزو2',
-  									    	  description: '',
-  								    		  id: '.ميزو2'
-  						  		    	}
-  						  				]
-  						  			},
+              buttons: [
+                {
+                  name: 'single_select',
+                  buttonParamsJson: JSON.stringify({
+                    title: 'اضـغـط هـنـا ➥',
+                    sections: [
+                      {
+                        title: '⟐═━─⏣─━═❪ 🇻 🇮 🇻 🇮   🇧 🇴 🇹 ❫═━─⏣─━═⟐',
+                        highlight_label: '☚',
+                        rows: [
+                                        {
+                                            header: '# قـسـم الـمـهـام🗂️ ⍅',
+                                            title: '.ميزو1',
+                                            description: '',
+                                            id: '.ميزو1'
+                                          }
+                        ]
+                      },
+                      {
+                        highlight_label: '',
+                        rows: [
+                          {
+                            header: '# قـسـم الـطـلـبـات📥 ⍅',
+                            title: '.ميزو2',
+                            description: '',
+                            id: '.نيزو2
+                          }
+                        ]
+                      },
+                      {
+                        highlight_label: '',
+                        rows: [
+                          {
+                            header: '# قـسـم الالـعـاب🎮 ⍅',
+                            title: '.ميزو3',
+                            description: '',
+                            id: '.ميزو3'
+                          }
+                        ]
+                      },
+                      {
+                        highlight_label: '',
+                        rows: [
+                          {
+                            header: '# قـسـم الـتـرفـيـه🏵️ ⍅',
+                            title: '.ميزو4',
+                            description: '',
+                            id: '.ميزو5'
+                          }
+                        ]
+                      },            {
+                        highlight_label: '',
+                        rows: [
+                          {
+                            header: '# قـسـم الـديـن📿 ⍅',
+                            title: '.ميزو6',
+                            description: '',
+                            id: '.ميزو6'
+                          }
+                        ]
+                      },
                                     {
-  						  				highlight_label: '𝐵𝛩𝑇',
-  						  				rows: [
-  						  					{
-  						  		    		header: '❯⏐اوامـر  الـترفـيـه↞🎀',
-  										      title: 'ميزو3',
-  									    	  description: '',
-  								    		  id: '.ميزو3'
-  						  		    	}
-  						  				]
-  						  			},
-                                    {
-  						  				highlight_label: '𝐵𝛩𝑇',
-  						  				rows: [
-  						  					{
-  						  		    		header: '❯⏐اوامـر  التـحمـيل↞🖨️',
-  										      title: 'ميزو4',
-  									    	  description: '',
-  								    		  id: '.ميزو4'
-  						  		    	}
-  						  				]
-  						  			},
-  						  	{
-  						  				highlight_label: '𝐵𝛩𝑇',
-  						  				rows: [
-  						  					{
-  						  		    		header: '❯⏐اوامـر الـصـور↞☘️',
-  										      title: 'ميزو5',
-  									    	  description: '',
-  								    		  id: '.ميزو5'
-  						  		    	}
-  						  				]
-  						  			},
-  						  	{
-  						  				highlight_label: '𝐵𝛩𝑇',
-  						  				rows: [
-  						  					{
-  						  		    		header: '❯⏐اوامـر الـلـفـل↞🏅',
-  										      title: 'ميزو6',
-  									    	  description: '',
-  								    		  id: '.ميزو6'
-  						  		    	}
-  						  				]
-  						  			},
-  						  	{
-  						  				highlight_label: '𝐵𝛩𝑇',
-  						  				rows: [
-  						  					{
-  						  		    		header: '❯⏐اوامـر الملصقات↞❄️',
-  										      title: 'ميزو7',
-  									    	  description: '',
-  								    		  id: '.ميزو7'
-  						  		    	}
-  						  				]
-  						  			},
-  						  	{
-  						  				highlight_label: '𝐵𝛩𝑇',
-  						  				rows: [
-  						  					{
-  						  		    		header: '❯⏐اوامـر الأصـوات↞🎵',
-  										      title: 'ميزو8',
-  									    	  description: '',
-  								    		  id: '.ميزو8'
-  						  		    	}
-  						  				]
-  						  			},
-  						  	{
-  						  				highlight_label: '𝐵𝛩𝑇',
-  						  				rows: [
-  						  					{
-  						  		    		header: '❯⏐اوامـر ديـنـيـه↞🕌',
-  										      title: 'ميزو9',
-  									    	  description: '',
-  								    		  id: '.ميزو9'
-  						  		    	}
-  						  				]
-  						  			},
-  						  	{
-  						  				highlight_label: '𝐵𝛩𝑇',
-  						  				rows: [
-  						  					{
-  						  		    		header: '❯⏐مـعلـومـات الـبـوت↞🪙',
-  										      title: 'ميزو10',
-  									    	  description: '',
-  								    		  id: '.ميزو10'
-  						  		    	}
-  						  				]
-  						  			},
-  						  	{
-  						  				highlight_label: '𝐵𝛩𝑇',
-  						  				rows: [
-  						  					{
-  						  		    		header: '❯⏐اوامـر الـمطـور↞👑',
-  										      title: 'ميزو11',
-  									    	  description: '',
-  								    		  id: 'ميزو11'
-  						  		    	}
-  						  				]
-  						  			},
-  						  	
-  						  			{
-  						  				highlight_label: '𝐵𝛩𝑇',
-  						  				rows: [
-  						  					{
-  						  		    		header: '❯⏐جـمـيـع الاوامـر ↞💎',
-  										      title: 'ميزو12',
-  									    	  description: '',
-  								    		  id: '.ميزو12'
-  						  		    	}
-  						  				]
-  						  			}
-  						  		]
-  						  	})
-  							},
-                            {
-                                  name: 'quick_reply',
-                                  buttonParamsJson: JSON.stringify({
-                                      display_text: '❯⏐الـمـطـور⚡️',
-                                      id: `.المطور`
-                                  })
+                                        highlight_label: '',
+                                        rows: [
+                                            {
+                                            header: '# قـسـم الـمـجـمـوعـة⚙️ ⍅',
+                            title: '.ميزو12',
+                            description: '',
+                            id: '.ميزو12'
+                                        }
+                                        ]
+                                    }
+                    ]
+                  })
+                },
+                              {
+
                               },
                               {
-                                  name: 'quick_reply',
-                                  buttonParamsJson: JSON.stringify({
-                                      display_text: '❯⏐شـرح الـبـوت🔍',
-                                      id: `.شرح`
-                                  })
+
                               },
                               {
-                                  name: 'cta_url',
-                                  buttonParamsJson: JSON.stringify({
-                                      display_text: '❯⏐قناني الواتساب☘️',
-                                      url: 'https://whatsapp.com/channel/0029VaenWxX0AgWDJwlaWG0W',
-                                      merchant_url: 'https://whatsapp.com/channel/0029VaenWxX0AgWDJwlaWG0W'
-                                  })
+
                               },
-  			  		],
+                              {
+
+
+                              },
+                              {
+
+                              },
+                              {
+
+                              },
+                              {
+
+                              },
+                              {
+
+                              }
+              ],
                 messageParamsJson: ''
             }
         };        
@@ -200,7 +160,14 @@ const handler = async (m, { conn, text, usedPrefix: prefijo }) => {
         conn.sendFile(m.chat, 'JoAnimi•Error.jpg', m);      
     }    
 };
-handler.help = ['الاوامر'];
+handler.help = ['imgboton'];
 handler.tags = ['For Test'];
-handler.command = /^(الاوامر|اوامر)$/i;
+handler.command = /^(اوامر|الاوامر|الأوامر|أوامر)$/i;
+
+function clockString(ms) {
+    let h = isNaN(ms) ? '--' : Math.floor(ms / 3600000)
+    let m = isNaN(ms) ? '--' : Math.floor(ms / 60000) % 60
+    let s = isNaN(ms) ? '--' : Math.floor(ms / 1000) % 60
+    return [h, m, s].map(v => v.toString().padStart(2, 0)).join(':')}
+
 export default handler;
