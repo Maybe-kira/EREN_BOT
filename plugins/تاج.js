@@ -3,7 +3,7 @@ conn.reply(m.chat,`*✦━━✤━ –⊰ ❖ ⊱– ━✤━━✦*\n\n*✦�
 }
 handler.help = ['تا٠']
 handler.tags = ['fun']
-handler.command = /^منشن/i
+handler.command = /^تاق/i
 export default handler
 function pickRandom(list) {
 return list[Math.floor(list.length * Math.random())]
