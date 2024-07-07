@@ -18,20 +18,19 @@
     "eslint": "eslint .",
     "eslintfix": "eslint --fix ."
   },
-  "homepage": "https://telegra.ph/file/2e7575be459cb6ef3c291.jpg",
+  "homepage": "https://github.com/BrunoSobrino/TheMystic-Bot-MD",
   "author": {
     "name": "BrunoSobrino"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://telegra.ph/file/2e7575be459cb6ef3c291.jpg"
+    "url": "git+https://github.com/BrunoSobrino/TheMystic-Bot-MD.git"
   },
   "bugs": {
     "url": "https://github.com/BrunoSobrino/TheMystic-Bot-MD/issues"
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "firebase-admin": "^12.0.0",
     "@adiwajshing/keyed-db": "^0.2.4",
     "@bochilteam/scraper": "^4.2.4",
     "@brandond/findthelyrics": "^2.0.5",
@@ -42,6 +41,7 @@
     "@vitalets/google-translate-api": "^8.0.0",
     "@whiskeysockets/baileys": "npm:@whiskeysockets/baileys@6.7.2",
     "@xct007/frieren-scraper": "github:xct007/frieren-scraper",
+    "@SumiFX/Scraper": "github:BrunoSobrino/SumiFX-Scraper",
     "acrcloud": "^1.4.0",
     "api-dylux": "^1.6.2",
     "aptoide-scraper": "^1.0.1",
