@@ -15,9 +15,9 @@ console.error(e)
 if (Buffer.isBuffer(e)) stiker = e
 } finally {
 if (stiker) conn.sendFile(m.chat, stiker, 'wm.webp', '', m, false, { asSticker: true })
-else throw '*❍┇آسف ، شيء ما خاطئ ..تحقق من أنك استجابت لملصق وأضفت اسم حزمة واسم حزمة┇⤪*'
+else throw '*❍┇آسف ، شيء ما خاطئ ..تحقق من أنك رديت على ملصق وأضفت اسم واسم حزمة┇⤪*'
 }}
 handler.help = ['wm <packname>|<author>']
 handler.tags = ['sticker']
-handler.command = /^حقوق|سرقة$/i
+handler.command = /^حقوق|سرقه$/i
 export default handler
