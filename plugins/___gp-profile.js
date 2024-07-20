@@ -1,7 +1,7 @@
 import { createHash } from 'crypto';
 import PhoneNumber from 'awesome-phonenumber';
 import { canLevelUp, xpRange } from '../lib/levelling.js';
-//import db from '../lib/database.js';
+// import db from '../lib/database.js';
 
 let handler = async (m, { conn, usedPrefix, command }) => {
     let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
@@ -10,7 +10,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
     let pp = await conn.profilePictureUrl(who, 'image').catch(_ => './src/avatar_contact.png');
     let user = global.db.data.users[who];
     let { name, exp, diamond, lastclaim, registered, regTime, age, level, warn } = user;
-    let messages = user.messages || 0; // التأكد من أن messages ليست NaN
+    let messages = user.messages || 0; // التأكد من أن messages ليست NaN أو undefined
     let { min, xp, max } = xpRange(user.level, global.multiplier);
     let username = conn.getName(who);
     let math = max - xp;
