@@ -15,7 +15,7 @@ const fs = require('fs-extra')
 const Levels = require("discord-xp");
 const { Sticker, createSticker, StickerTypes } = require("wa-sticker-formatter");
 //---------------------------------------------------------------------------
-cmd({
+/*cmd({
             pattern: "انضم",
             desc: "joins group by link",
             category: "للمالك",
@@ -115,7 +115,7 @@ cmd({
         }
     )*/
     //---------------------------------------------------------------------------
-cmd({
+/*cmd({
             pattern: "الغاء-حظر",
             desc: "Unblocked to the quoted user.",
             category: "للمالك",
@@ -131,7 +131,7 @@ cmd({
                 .then((res) => console.log(jsonformat(res)))
                 .catch((err) => console.log(jsonformat(err)));
         }
-    )
+    )*/
     //---------------------------------------------------------------------------
     cmd({
         pattern: "ايدي",
@@ -581,7 +581,7 @@ cmd({
         }
     )
     //---------------------------------------------------------------------------
-cmd({
+/*cmd({
             pattern: "ترقية",
             desc: "Provides admin role to replied/quoted user",
             category: "للمشرفين",
@@ -608,7 +608,7 @@ cmd({
         }
     )
     //---------------------------------------------------------------------------
-cmd({
+/*cmd({
             pattern: "طرد",
             desc: "Kicks replied/quoted user from group.",
             category: "للمشرفين",
@@ -633,7 +633,7 @@ cmd({
 
             }
         }
-    )
+    )*/
     //---------------------------------------------------------------------------
 /*cmd({
             pattern: "memegen",
@@ -664,7 +664,7 @@ cmd({
     //---------------------------------------------------------------------------
 
     //---------------------------------------------------------------------------
-cmd({
+/*cmd({
             pattern: "افتار-القروب",
             desc: "Sets a profile pic in Group..",
             category: "للمشرفين",
@@ -748,7 +748,7 @@ cmd({
         }
     )*/
     //---------------------------------------------------------------------------
-cmd({
+/*cmd({
         pattern: "خفض",
         desc: "Demotes replied/quoted user from group",
         category: "للمشرفين",
@@ -841,7 +841,7 @@ cmd({
 
     )*/
     //---------------------------------------------------------------------------
-cmd({
+/*cmd({
             pattern: "حظر",
             desc: "blocks that person",
             fromMe: true,
@@ -858,7 +858,7 @@ cmd({
                 .catch((err) => console.log(jsonformat(err)));
 
         }
-    )
+    )*/
     //---------------------------------------------------------------------------
 
 
