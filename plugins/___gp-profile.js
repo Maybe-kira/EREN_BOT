@@ -9,7 +9,8 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 
     let pp = await conn.profilePictureUrl(who, 'image').catch(_ => './src/avatar_contact.png');
     let user = global.db.data.users[who];
-    let { name, exp, diamond, lastclaim, registered, regTime, age, level, warn, messages } = user;
+    let { name, exp, diamond, lastclaim, registered, regTime, age, level, warn } = user;
+    let messages = user.messages || 0; // التأكد من أن messages ليست NaN
     let { min, xp, max } = xpRange(user.level, global.multiplier);
     let username = conn.getName(who);
     let math = max - xp;
@@ -109,7 +110,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 *⤶❏ الرابط 🖇️ : wa.me/${who.split('@')[0]}${registered ? '\n⤶❏ *🎈العمر*: ' + age + ' years' : ''}*
 *⤶❏ التحذيرات ⛔ : ${warn}/${maxwarn}*
 *⤶❏ الجواهر 💎 : ${diamond}*
-*⭈ 📥 الرسائل: ${Math.floor(messages)}* 
+*⭈ 📥 الرسائل: ${messages}* 
 *⤶❏ المستوى 📊 : ${level}*
 *⤶❏ الاكس بي 📈* : المجموع ${exp} (${user.exp - min} / ${xp})\n${math <= 0 ? `*${usedPrefix}levelup*` : `فاضل لك *${math}اكس بي للصعود الى لفل اخر*`}
 *⤶❏ التصنيف 🧮 : ${role}*
