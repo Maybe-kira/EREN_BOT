@@ -2,7 +2,7 @@ import { createHash } from 'crypto'
 import PhoneNumber from 'awesome-phonenumber'
 import { canLevelUp, xpRange } from '../lib/levelling.js'
 //import db from '../lib/database.js'
-
+const userq = await Levels.fetch(citel.sender, "RandomXP");
 let handler = async (m, { conn, usedPrefix, command}) => {
 
 let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
