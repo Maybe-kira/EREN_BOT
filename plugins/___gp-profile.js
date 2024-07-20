@@ -1,10 +1,7 @@
 import { createHash } from 'crypto';
 import PhoneNumber from 'awesome-phonenumber';
 import { canLevelUp, xpRange } from '../lib/levelling.js';
-//import db from '../lib/database.js'
-
-// تأكد من استيراد Levels من الملف أو المكتبة الصحيحة
-import Levels from '../lib/levels.js';
+//import db from '../lib/database.js';
 
 let handler = async (m, { conn, usedPrefix, command }) => {
     let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender;
@@ -20,12 +17,11 @@ let handler = async (m, { conn, usedPrefix, command }) => {
     let sn = createHash('md5').update(who).digest('hex');
     let maxwarn = 3; // تعريف maxwarn بقيمة افتراضية
     
-    // تعريف userq و ttms
-    let userq = await Levels.fetch(who, "RandomXP");
-    let ttms = `${userq.xp / 8}`;
+    // حساب ttms مباشرة من بيانات المستخدم
+    let ttms = `${exp / 8}`;
 
     // تحديد الدور بناءً على النقاط
-    const lvpoints = userq.level;
+    const lvpoints = level;
     let role = "?";
     if (lvpoints <= 2) {
         role = "مواطن 👦🏻";
