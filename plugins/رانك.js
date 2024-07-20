@@ -1,17 +1,14 @@
 cmd({
-            pattern: "بروفايل",
-            desc: "Shows profile of user.",
+            pattern: "رانك",
+            desc: "Sends rank card of user.",
             category: "عام",
             filename: __filename,
         },
         async(Void, citel, text) => {
-            var bio = await Void.fetchStatus(citel.sender);
-            var bioo = bio.status;
-            let meh = citel.sender;
             const userq = await Levels.fetch(citel.sender, "RandomXP");
             const lvpoints = userq.level;
             var role = "?";
-          if (lvpoints <= 2) {
+                           if (lvpoints <= 2) {
   var role = "مواطن 👦🏻";
 } else if (lvpoints <= 4) {
   var role = "شونين 👦🏻🗡️";
@@ -92,39 +89,21 @@ cmd({
 } else {
   var role = " القوت 🐐";
 }
-            let ttms = `${userq.xp}` / 8;
-            const timenow = moment(moment())
-                .format('HH:mm:ss')
-            moment.tz.setDefault('Asia/Kolakata')
-                .locale('id')
-            try {
-                pfp = await Void.profilePictureUrl(citel.sender, "image");
-            } catch (e) {
-                pfp = await botpic();
-            }
-            const profile = `
-╮👤 *مرحبا، ${citel.pushName}!*
-│
-├⭈ ❖ اليوزر: ${citel.pushName}
-├⭈ ✨ الحالة: ${bioo}
-├⭈ 🎭 الدور: ${role}
-│
-├⭈ 🍁 المستوى: ${userq.level}
-├⭈ 📥 الرسائل: ${ttms}
-│
-╰─🚀 *Powered by ${tlang().title}*
-`;
-            let buttonMessage = {
-                image: {
-                    url: pfp,
-                },
-                caption: profile,
-                footer: tlang().footer,
-                headerType: 4,
-            };
-            Void.sendMessage(citel.chat, buttonMessage, {
-                quoted: citel,
-            });
-
+           let disc = citel.sender.substring(3, 7);
+let textr = `╮ ${tlang().greet}\n│ 🌟 رانك: ${citel.pushName}∆${disc}\n\n`;
+let ttms = `${userq.xp}` / 8;
+textr += `⭈ 🎭 الدور: ${role}\n⭈ 🟢 نقاط الخبرة: ${userq.xp} / ${Levels.xpFor(userq.level + 1)}\n`;
+textr += `⭈ 🏡 المستوى: ${userq.level}\n⭈ 📥 مجموع الرسائل: ${ttms}\n`;
+try {
+  ppuser = await Void.profilePictureUrl(citel.sender, "image");
+} catch {
+  ppuser = THUMB_IMAGE;
+}
+Void.sendMessage(citel.chat, {
+  image: await getBuffer(ppuser),
+  caption: textr + `╰─ Powered by ${tlang().title}`,
+}, {
+  quoted: citel,
+});
         }
     )
