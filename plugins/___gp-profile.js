@@ -9,16 +9,13 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 
     let pp = await conn.profilePictureUrl(who, 'image').catch(_ => './src/avatar_contact.png');
     let user = global.db.data.users[who];
-    let { name, exp, diamond, lastclaim, registered, regTime, age, level, warn } = user;
+    let { name, exp, diamond, lastclaim, registered, regTime, age, level, warn, messages } = user;
     let { min, xp, max } = xpRange(user.level, global.multiplier);
     let username = conn.getName(who);
     let math = max - xp;
     let prem = global.prems.includes(who.split`@`[0]);
     let sn = createHash('md5').update(who).digest('hex');
     let maxwarn = 3; // تعريف maxwarn بقيمة افتراضية
-    
-    // حساب ttms مباشرة من بيانات المستخدم
-    let ttms = `${exp / 8}`;
 
     // تحديد الدور بناءً على النقاط
     const lvpoints = level;
@@ -112,7 +109,7 @@ let handler = async (m, { conn, usedPrefix, command }) => {
 *⤶❏ الرابط 🖇️ : wa.me/${who.split('@')[0]}${registered ? '\n⤶❏ *🎈العمر*: ' + age + ' years' : ''}*
 *⤶❏ التحذيرات ⛔ : ${warn}/${maxwarn}*
 *⤶❏ الجواهر 💎 : ${diamond}*
-*⭈ 📥 الرسائل: ${ttms}* 
+*⭈ 📥 الرسائل: ${Math.floor(messages)}* 
 *⤶❏ المستوى 📊 : ${level}*
 *⤶❏ الاكس بي 📈* : المجموع ${exp} (${user.exp - min} / ${xp})\n${math <= 0 ? `*${usedPrefix}levelup*` : `فاضل لك *${math}اكس بي للصعود الى لفل اخر*`}
 *⤶❏ التصنيف 🧮 : ${role}*
