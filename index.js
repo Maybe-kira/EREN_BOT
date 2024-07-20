@@ -116,26 +116,8 @@ function replaceInvalidKeys(obj) {
     return newObj;
 }
 
+
 setTimeout(() => {
     console.log('The next codes are executed after a delay of 26 seconds...');
     start('main.js')
 }, 26000);
-
-// النص المطلوب لتحديث عدد الرسائل
-conn.on('chat-update', async (message) => {
-    if (!message.hasNewMessage) return;
-    if (!message.messages) return;
-    let m = message.messages.all()[0];
-    let sender = m.key.remoteJid;
-
-    // تحديث عدد الرسائل
-    if (!global.db.data.users[sender]) {
-        global.db.data.users[sender] = {
-            messages: 0,
-            // ... باقي البيانات الافتراضية
-        };
-    }
-    global.db.data.users[sender].messages = (global.db.data.users[sender].messages || 0) + 1;
-
-    // ... باقي الكود لمعالجة الرسائل
-});
