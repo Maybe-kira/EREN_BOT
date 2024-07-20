@@ -184,6 +184,16 @@ export async function handler(chatUpdate) {
         if (!isNumber(user.exp)) user.exp = 0;
         if (!isNumber(user.expg)) user.expg = 0;
         if (!isNumber(user.exphero)) user.exphero = 0;
+
+const user = global.db.data.users[m.sender];
+if (typeof user !== 'object') {
+  global.db.data.users[m.sender] = {};
+}
+if (user) {
+  if (!isNumber(user.messages)) user.messages = 0;
+  user.messages += 1;
+  // باقي الكود الخاص بتحميل البيانات
+}
         if (!isNumber(user.eleksirb)) user.eleksirb = 0;
         if (!isNumber(user.emasbatang)) user.emasbatang = 0;
         if (!isNumber(user.emasbiasa)) user.emasbiasa = 0;
@@ -1786,4 +1796,3 @@ watchFile(file, async () => {
     }
   }
 
-});
