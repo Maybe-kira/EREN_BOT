@@ -2,7 +2,7 @@ import { createHash } from 'crypto'
 import PhoneNumber from 'awesome-phonenumber'
 import { canLevelUp, xpRange } from '../lib/levelling.js'
 //import db from '../lib/database.js'
-const userq = await Levels.fetch(citel.sender, "RandomXP");
+
 let handler = async (m, { conn, usedPrefix, command}) => {
 
 let who = m.quoted ? m.quoted.sender : m.mentionedJid && m.mentionedJid[0] ? m.mentionedJid[0] : m.fromMe ? conn.user.jid : m.sender
@@ -17,6 +17,7 @@ let prem = global.prems.includes(who.split`@`[0])
 let sn = createHash('md5').update(who).digest('hex')
 let maxwarn = 3; // تعريف maxwarn بقيمة افتراضية
 let ttms = `${userq.xp}` / 8;
+const userq = await Levels.fetch(citel.sender, "RandomXP");
 let str = `*❖ ── ✦ ──『⚜️』── ✦ ── ❖*
 *⤶❏ الاسم 👤:* ${username} ${registered ? '\n   • ' + name + ' ' : ''}   
 *⤶❏ المنشن 📧 : @${who.replace(/@.+/, '')}*
