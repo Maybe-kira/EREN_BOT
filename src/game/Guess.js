@@ -156,7 +156,7 @@
 
         "img": "https://telegra.ph/file/f1bac44d568cbfb21779c.jpg",
 
-        "name": "ياماتتتو"
+        "name": "ياماتو"
 
     },
 
@@ -268,7 +268,7 @@
 
         "img": "https://telegra.ph/file/673779a63786384ce2d7d.jpg",
 
-        "name": "غوهان"
+        "name": "يوهان"
 
     },
 
@@ -364,7 +364,7 @@
 
         "img": "https://telegra.ph/file/189d9f37331bd8eb43bca.jpg",
 
-        "name": "يااماتو"
+        "name": "ياماتو"
 
     },
 
